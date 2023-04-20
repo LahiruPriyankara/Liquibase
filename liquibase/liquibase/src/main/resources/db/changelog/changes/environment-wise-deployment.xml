@@ -1,0 +1,43 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="env_wise_deployment_create_class_tbl" author="lahiru">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="student_class"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="student_class">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="class_name" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="env_wise_deployment_insert_local_student_class" author="lahiru" context="local">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="student_class"/>
+        </preConditions>
+        <sql>
+            -- Inset data
+            INSERT INTO student_class (class_name) VALUES ("Local env class");
+        </sql>
+    </changeSet>
+
+    <changeSet id="env_wise_deployment_insert_dev_student_class" author="lahiru" context="dev">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="student_class"/>
+        </preConditions>
+        <sql>
+            -- Inset data
+            INSERT INTO student_class (class_name) VALUES ("Dev env class");
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,21 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="insert_2_value_to_student_tbl" author="lahiru">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="student"/>
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM student;
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            -- Inset data
+            INSERT INTO student (student_name, address,height,age) VALUES
+            ("stu_2","address_2",10,11),("stu_3","address_3",11,12);
+            INSERT INTO student (student_name, address,height,age) VALUES ("stu_4","address_4",30,13);
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
